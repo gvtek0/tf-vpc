@@ -26,7 +26,7 @@ resource "aws_route_table" "PublicRT" {
     vpc_id = aws_vpc.Main.id
         route {
             cidr_block = "0.0.0.0/0"
-            gateway_id aws_internet_gateway.IGW.id
+            gateway_id = aws_internet_gateway.IGW.id
     }
 }
 
