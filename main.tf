@@ -6,26 +6,32 @@ resource "aws_vpc" "Main" {
 
 # Create IGW
 resource "aws_internet_gateway" "IGW" {
-  vpc_id = aws_vpc.Main.id
+    vpc_id = aws_vpc.Main.id
 }
 
 # Create public
 resource "aws_subnet" "publicsubnets" {
-  vpc_id = aw_vpc.Main.id
-  cidr_block = "${var.public_subnets}"
+    vpc_id = aw_vpc.Main.id
+    cidr_block = "${var.public_subnets}"
 }
 
 # Create private
 resource "aws_subnet" "privatesubnets" {
-  vpc_id = aws_vpc.Main.id
-  cidr_block = "${var.private_subnets}"
+    vpc_id = aws_vpc.Main.id
+    cidr_block = "${var.private_subnets}"
 }
 
 # Route table for public
 resource "aws_route_table" "PublicRT" {
-  vpc_id = aws_vpc.Main.id
-    route {
-        cidr_block = "0.0.0.0/0"
-        gateway_id aws_internet_gateway.IGW.id
+    vpc_id = aws_vpc.Main.id
+        route {
+            cidr_block = "0.0.0.0/0"
+            gateway_id aws_internet_gateway.IGW.id
     }
+}
+
+# Route table for private
+resource "aws_route_table" "PrivateRT" {
+    vpc_id = aws_vpc.Main.id
+
 }
